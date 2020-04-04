@@ -1,0 +1,38 @@
+
+package:
+  name: cadquery-pyocct
+  version:  {{ environ.get('PACKAGE_VERSION') }}
+
+source:
+  path: .
+
+build:
+
+  string: {{ 'py'+environ.get('PYTHON_VERSION')}}
+
+  script: ./provision.py
+
+  missing_dso_whitelist:
+  - '*/ld-linux-x86-64.so.2'
+  - '*/libc.so.6'
+  - '*/libm.so.6'
+  - '*/libpthread.so.0'
+
+  ignore_run_exports:
+  - python
+
+requirements:
+
+  build:
+  - python {{ environ.get('PYTHON_VERSION') }}.*
+  - occt 7.4.0.*
+
+  run:
+  - python {{ environ.get('PYTHON_VERSION') }}.*
+  - occt 7.4.0.*
+  - libgcc-ng
+  - libstdcxx-ng
+
+about:
+
+summary: CadQuery Python OCCT Wrapper
